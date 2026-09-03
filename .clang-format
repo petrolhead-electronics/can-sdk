@@ -1,0 +1,47 @@
+---
+Language: Cpp
+BasedOnStyle: LLVM
+
+IndentWidth: 4
+ContinuationIndentWidth: 4
+TabWidth: 4
+UseTab: Never
+
+ColumnLimit: 120
+
+# Allman - "Braces-Stand-Alone" in NASA SEL-94-003 7.1.2. See docs/CODE-STYLE.md.
+# Previously Allman for functions only, K&R for control statements.
+BreakBeforeBraces: Allman
+
+# Bodies are always braced (CODE-STYLE.md, deviation from SEL-94-003 7.2.1).
+#
+# InsertBraces is what actually *adds* a missing brace; the AllowShort* keys
+# below only stop clang-format collapsing an existing body back onto one line.
+# Both are needed: without InsertBraces a brace-less `if (x) return;` is left
+# exactly as written, which is the construct this project bans outright.
+InsertBraces: true
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+
+IndentCaseLabels: false
+
+# Bind & and * to the type, not the name: `const CanFrame& frame`.
+# This is what the codebase already does (703 sites vs 45), so it is kept
+# explicitly — the LLVM base style would otherwise flip every one of them.
+PointerAlignment: Left
+ReferenceAlignment: Pointer
+DerivePointerAlignment: false
+
+# Access specifiers sit flush with the class keyword (`public:` at column 0 of
+# the class body), again matching existing code. The LLVM default of -2 would
+# re-indent every access specifier in the project.
+AccessModifierOffset: -4
+
+# An extern "C" block wraps a whole public header; indenting everything inside
+# it buys nothing and costs a level of margin on every declaration.
+IndentExternBlock: NoIndent
+
+SortIncludes: Never
